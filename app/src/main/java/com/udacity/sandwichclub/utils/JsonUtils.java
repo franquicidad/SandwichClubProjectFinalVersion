@@ -1,5 +1,6 @@
 package com.udacity.sandwichclub.utils;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,6 +24,12 @@ public class JsonUtils {
 
     public static Sandwich parseSandwichJson(String json) {
 
+        String mainName=null;
+        String origin=null;
+        String des=null;
+        String alsoKnown=null;
+
+
 
         try {
             JSONObject rootObject = new JSONObject(json);
@@ -31,16 +38,22 @@ public class JsonUtils {
             JSONObject subObj = rootObject.getJSONObject("name");
             Log.v(TAG, "JSON FOR NAMEEE" + subObj);
             /** Retrieve Main Name*/
-            String mainName = subObj.getString("mainName");
-            Log.v(TAG, "JSON FOR MAINNAME" + mainName);
+            if(rootObject.has("mainName")){
+                mainName = subObj.getString("mainName");
+                Log.v(TAG, "JSON FOR MAINNAME" + mainName);
+            }
 
             /** Retrieve Place of origin*/
-            String origin = rootObject.getString("placeOfOrigin");
-            Log.v(TAG, "JSON FOR ORIGIN" + origin);
+            if(rootObject.has("placeOfOrigin")) {
+                origin = rootObject.getString("placeOfOrigin");
+                Log.v(TAG, "JSON FOR ORIGIN" + origin);
+            }
 
             /** Retrieve Description*/
-            String des = rootObject.getString("description");
-            Log.v(TAG, "JSON FOR DESCRIPTION" + des);
+            if(rootObject.has("description")) {
+                des = rootObject.getString("description");
+                Log.v(TAG, "JSON FOR DESCRIPTION" + des);
+            }
 
             /** Image*/
             String image = rootObject.getString("image");
@@ -49,11 +62,16 @@ public class JsonUtils {
             /** Retrieve also known as from the JSON Array*/
             JSONArray setArray = subObj.getJSONArray("alsoKnownAs");
             List<String> alsoKnownList = new ArrayList<>();
+            
             for (int i = 0; i < setArray.length(); i++) {
-                String alsoKnown = setArray.getString(i);
-                Log.v(TAG, "JSON FOR alsoknown" + alsoKnown);
-                alsoKnownList.add(alsoKnown);
+
+                if(rootObject.has("alsoKnownAs")) {
+                    alsoKnown = setArray.getString(i);
+                    Log.v(TAG, "JSON FOR alsoknown" + alsoKnown);
+                    alsoKnownList.add(alsoKnown);
+                }
             }
+
 
 
 
