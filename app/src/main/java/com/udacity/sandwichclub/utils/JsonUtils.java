@@ -33,12 +33,14 @@ public class JsonUtils {
 
         try {
             JSONObject rootObject = new JSONObject(json);
+            JSONObject subObj=new JSONObject(json);
 
             /** Access Name*/
-            JSONObject subObj = rootObject.getJSONObject("name");
+            if(rootObject.has("name"))
+            subObj = rootObject.getJSONObject("name");
             Log.v(TAG, "JSON FOR NAMEEE" + subObj);
             /** Retrieve Main Name*/
-            if(rootObject.has("mainName")){
+            if(subObj.has("mainName")){
                 mainName = subObj.getString("mainName");
                 Log.v(TAG, "JSON FOR MAINNAME" + mainName);
             }
@@ -65,7 +67,7 @@ public class JsonUtils {
             
             for (int i = 0; i < setArray.length(); i++) {
 
-                if(rootObject.has("alsoKnownAs")) {
+                if(subObj.has("alsoKnownAs")) {
                     alsoKnown = setArray.getString(i);
                     Log.v(TAG, "JSON FOR alsoknown" + alsoKnown);
                     alsoKnownList.add(alsoKnown);

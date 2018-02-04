@@ -75,6 +75,7 @@ public class DetailActivity extends AppCompatActivity {
         placeOrigin.setText(sandwich.getPlaceOfOrigin());
         description.setText(sandwich.getDescription());
         ingredients.setText(sandwich.getIngredients().toString());
+        mName.setText(sandwich.getMainName());
 
     }
 
